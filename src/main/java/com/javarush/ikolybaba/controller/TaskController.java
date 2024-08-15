@@ -1,11 +1,9 @@
 package com.javarush.ikolybaba.controller;
 
 
-import com.javarush.ikolybaba.domain.Status;
 import com.javarush.ikolybaba.domain.Task;
 import com.javarush.ikolybaba.service.TaskService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,13 +27,7 @@ public class TaskController {
 
     @GetMapping(value = {"/tasks","/tasks/"})
     public List<Task> getAll() {
-        return service.getAllTasks();
+        return service.getTasksFromPage(0, 15);
     }
 
-
-    @GetMapping(value = {"/delete-{id}", "/delete-{id}/"})
-    public String deleteTaskById(@PathVariable Integer id) {
-        service.deleteTaskById(id);
-        return "Task by " + id + " deleted";
-    }
 }

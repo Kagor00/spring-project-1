@@ -2,7 +2,7 @@ package com.javarush.ikolybaba.config;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-public class MyWebAppInit extends AbstractAnnotationConfigDispatcherServletInitializer {
+public class WebAppInit extends AbstractAnnotationConfigDispatcherServletInitializer {
 
     @Override
     protected Class<?>[] getRootConfigClasses() {
