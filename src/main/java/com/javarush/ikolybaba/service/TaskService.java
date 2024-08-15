@@ -18,27 +18,32 @@ import java.util.Optional;
 public class TaskService {
     private final TaskRepository repository;
 
+
     @Transactional(readOnly = true)
     public Task getTaskById(int id) {
         Optional<Task> taskOptional = repository.findById(id);
         return taskOptional.orElseGet(Task::new);
     }
 
+
     @Transactional(readOnly = true)
     public List<Task> getTasksFromPage(int pageIndex, int limit) {
-        Pageable pageable = PageRequest.of(pageIndex, limit);
+        Pageable pageable = PageRequest.of(pageIndex - 1, limit);
         return repository.findAll(pageable).getContent();
     }
+
 
     @Transactional(readOnly = true)
     public int getAllCount() {
         return Math.toIntExact(repository.count());
     }
 
+
     @Transactional
     public Task create(String description, Status status) {
         return repository.save(new Task(description, status));
     }
+
 
     @Transactional
     public Task edit(int id, String description, Status status) {
