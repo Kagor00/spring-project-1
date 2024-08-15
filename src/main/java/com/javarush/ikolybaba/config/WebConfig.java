@@ -9,5 +9,4 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableWebMvc
 @ComponentScan("com.javarush.ikolybaba")
 public class WebConfig implements WebMvcConfigurer {
-
 }

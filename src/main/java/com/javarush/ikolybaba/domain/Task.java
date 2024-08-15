@@ -2,6 +2,7 @@ package com.javarush.ikolybaba.domain;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -9,6 +10,7 @@ import lombok.ToString;
 @Table(name = "task")
 @Getter
 @Setter
+@NoArgsConstructor
 @ToString
 public class Task {
     @Id
@@ -19,4 +21,9 @@ public class Task {
     @Enumerated(EnumType.ORDINAL)
     @Column(name = "status")
     private Status status;
+
+    public Task(String description, Status status) {
+        this.description = description;
+        this.status = status;
+    }
 }

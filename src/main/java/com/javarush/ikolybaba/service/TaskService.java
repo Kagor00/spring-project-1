@@ -1,7 +1,6 @@
 package com.javarush.ikolybaba.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
+import com.javarush.ikolybaba.domain.Status;
 import com.javarush.ikolybaba.domain.Task;
 import com.javarush.ikolybaba.repository.TaskRepository;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +28,14 @@ public class TaskService {
 
    public List<Task> getAllTasks() {
       return repository.findAll();
+   }
+
+   public Task createTask(String description, Status status) {
+       return repository.save(new Task(description, status));
+   }
+
+   public void deleteTaskById(Integer id) {
+        repository.deleteById(id);
    }
 
 }
