@@ -11,7 +11,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.IntStream;
 
 import static java.util.Objects.isNull;
@@ -42,17 +44,19 @@ public class TaskController {
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> edit(Model model,
-                                        @PathVariable("id") Integer id,
-                                        @RequestBody TaskDTO taskDto) {
+    public ResponseEntity<?> edit(@PathVariable("id") Integer id,
+                                  @RequestBody TaskDTO taskDto) {
         System.out.println("Edit");
         if (isNull(id) || id <= 0) {
             throw new RuntimeException("Invalid id.");
         }
 
         try {
-            Task task = service.edit(id, taskDto.getDescription(), taskDto.getStatus());
-            return ResponseEntity.ok(taskDto);
+            service.edit(id, taskDto.getDescription(), taskDto.getStatus());
+            Map<String, Object> response = new HashMap<>();
+            response.put("message", "Task by id " + id + " updated successfully.");
+            response.put("task", taskDto);
+            return ResponseEntity.ok(response);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
@@ -60,20 +64,27 @@ public class TaskController {
 
 
     @PostMapping("/")
-    public String add(Model model, @RequestBody TaskDTO taskDto) {
-        Task task = service.create(taskDto.getDescription(), taskDto.getStatus());
-        return tasks(model, 1, 10);
-
+    public ResponseEntity<?> add(@RequestBody TaskDTO taskDto) {
+        try {
+            service.create(taskDto.getDescription(), taskDto.getStatus());
+            return ResponseEntity.ok(taskDto);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
     }
 
+
     @DeleteMapping("{id}")
-    public String delete(Model model, @PathVariable Integer id) {
+    public ResponseEntity<?> delete(@PathVariable Integer id) {
         if (isNull(id) || id <= 0) {
             throw new RuntimeException("Invalid id.");
         }
 
-        service.delete(id);
-
-        return tasks(model, 1, 10);
+        try {
+            service.delete(id);
+            return ResponseEntity.ok("Task by id " + id + " deleted successfully.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
     }
 }
