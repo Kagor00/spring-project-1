@@ -58,7 +58,7 @@ function update_task(task_id) {
         data: JSON.stringify({"description": value_description, "status": value_status}),
         success: function (response) {
             console.log("Task updated successfully:", response);
-            window.location.reload(true);
+            window.location.reload();
         },
         error: function (xhr, status, error) {
             console.error("Error updating task:", status, error);
@@ -79,7 +79,7 @@ function add_task() {
         data: JSON.stringify({"description": value_description, "status": value_status}),
         success: function (response) {
             console.log("Task added successfully:", response);
-            window.location.reload(true);
+            window.location.reload();
         },
         error: function (xhr, status, error) {
             console.error("Error adding task:", status, error);
