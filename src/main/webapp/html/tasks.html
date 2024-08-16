@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <title>tasks</title>
     <link rel="stylesheet" href="/style/main.css">
+    <script src="/script/jquery.js"></script>
+    <script src="/script/task.js"></script>
 </head>
 <body>
 <table>
@@ -20,9 +22,24 @@
         <td th:text="${task.id}"></td>
         <td th:text="${task.description}" th:id="'decription_' + ${task.id}"></td>
         <td th:text="${task.status}" th:id="'status_' + ${task.id}"></td>
+        <td>
+            <button th:id="'edit_' + ${task.id}" th:onclick="'edit_task(' + ${task.id} + ')'">Edit</button>
+        </td>
+        <td>
+            <button th:id="'delete_' + ${task.id}" th:onclick="'delete_task(' + ${task.id} + ')'">Delete</button>
+        </td>
     </tr>
     </tbody>
 </table>
+
+<h2>
+    <button th:each="pageNumber : ${page_numbers}" class="button_page">
+        <a th:href="@{/(page=${pageNumber}, limit=10)}"
+           th:text="${pageNumber}"
+           th:classappend="${pageNumber == currentPage? 'active_page' : ''}"></a>
+    </button>
+</h2>
+
 
 </body>
 </html>

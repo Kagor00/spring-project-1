@@ -20,13 +20,6 @@ public class TaskService {
 
 
     @Transactional(readOnly = true)
-    public Task getTaskById(int id) {
-        Optional<Task> taskOptional = repository.findById(id);
-        return taskOptional.orElseGet(Task::new);
-    }
-
-
-    @Transactional(readOnly = true)
     public List<Task> getTasksFromPage(int pageIndex, int limit) {
         Pageable pageable = PageRequest.of(pageIndex - 1, limit);
         return repository.findAll(pageable).getContent();
