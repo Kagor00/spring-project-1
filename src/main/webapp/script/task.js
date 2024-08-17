@@ -1,5 +1,11 @@
+
+function get_base_url() {
+    let path = window.location.pathname;
+    return path.substring(0, path.lastIndexOf('/') + 1);
+}
+
 function delete_task(task_id) {
-    let url = "/" + task_id;
+    let url = get_base_url() + task_id;
     $.ajax({
         url: url,
         type: "DELETE",
@@ -9,6 +15,7 @@ function delete_task(task_id) {
         },
         error: function (xhr, status, error) {
             console.error("Error deleting task:", status, error);
+            console.log("Response Text:", xhr.responseText);
         }
     });
 }
@@ -46,7 +53,7 @@ function getDropdownStatusHtml(task_id) {
 }
 
 function update_task(task_id) {
-    let url = "/" + task_id;
+    let url = get_base_url() + task_id;
     let value_description = $("#input_description_" + task_id).val();
     let value_status = $("#select_status_" + task_id).val();
 
@@ -68,11 +75,12 @@ function update_task(task_id) {
 }
 
 function add_task() {
+    let url = get_base_url();
     let value_description = $("#description_new").val();
     let value_status = $("#status_new").val();
 
     $.ajax({
-        url: "/",
+        url: url,
         type: "POST",
         dataType: "json",
         contentType: "application/json;charset=UTF-8",
@@ -87,5 +95,3 @@ function add_task() {
         }
     });
 }
-
-

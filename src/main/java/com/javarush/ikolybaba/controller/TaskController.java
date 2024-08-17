@@ -74,7 +74,7 @@ public class TaskController {
     }
 
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Integer id) {
         if (isNull(id) || id <= 0) {
             throw new RuntimeException("Invalid id.");
