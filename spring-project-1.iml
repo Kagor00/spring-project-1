@@ -6,6 +6,7 @@
         <setting name="validation-enabled" value="true" />
         <datasource-mapping>
           <factory-entry name="entityManagerFactory" value="0bdc8086-adbe-40e3-bf44-9a184564ff4b" />
+          <factory-entry name="spring-project-1" value="0bdc8086-adbe-40e3-bf44-9a184564ff4b" />
         </datasource-mapping>
         <naming-strategy-map />
       </configuration>
